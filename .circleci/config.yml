@@ -7,7 +7,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       # Only java version 8 or above
-      - image: cimg/openjdk:8.0.0
+      - image: cimg/openjdk:8.0-jdk
 
     steps:
       - checkout
