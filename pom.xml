@@ -30,8 +30,10 @@
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
         </dependency>
-
-
     </dependencies>
+    <build>
+        <testSourceDirectory>src/main/java/fr/univavignon/pokedex/api</testSourceDirectory>
+        <testOutputDirectory>src/test/java/fr/univavignon/pokedex/api</testOutputDirectory>
+    </build>
 
 </project>
