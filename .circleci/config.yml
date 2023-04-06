@@ -27,6 +27,8 @@ jobs:
       - run:
           name: Build
           command: mvn -B -DskipTests clean package
+          after_success:
+            bash <(curl -s https://codecov.io/bash) -f target/reports/jacoco/codeCoverageReport/codeCoverageReport.xml
             
             
       # Execution of the unit tests with Maven
@@ -34,9 +36,7 @@ jobs:
           name: Run unit tests
           command: |
             mvn clean test
-          after_success:
-            bash <(curl -s https://codecov.io/bash) -f 
-            build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml
+
 # Workflows
 workflows:
   version: 2.1
