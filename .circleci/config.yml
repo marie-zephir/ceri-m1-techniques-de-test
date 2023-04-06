@@ -35,7 +35,8 @@ jobs:
           command: |
             mvn clean test
           after_success:
-            - bash <(curl -s https://codecov.io/bash)
+            bash <(curl -s https://codecov.io/bash) -f 
+            build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml
 # Workflows
 workflows:
   version: 2.1
