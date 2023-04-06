@@ -6,7 +6,12 @@ Nom : ZEPHIR
 Prénom : Marie
 
 Groupe: M1-ALT-ILSEN
+
+
 [![CircleCI](https://circleci.com/gh/marie-zephir/ceri-m1-techniques-de-test.svg?style=svg)](https://circleci.com/gh/marie-zephir/ceri-m1-techniques-de-test)
+
+
+[![codecov](https://codecov.io/gh/marie-zephir/ceri-m1-techniques-de-test/branch/master/graph/badge.svg)](https://codecov.io/gh/marie-zephir/ceri-m1-techniques-de-test)
 
 ## Introduction
 
