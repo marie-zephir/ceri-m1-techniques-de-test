@@ -1,5 +1,13 @@
 # UCE Génie Logiciel Avancé : Techniques de tests
 
+## MyProject
+Nom : ZEPHIR
+
+Prénom : Marie
+
+Groupe: M1-ALT-ILSEN
+[![CircleCI](https://circleci.com/gh/marie-zephir/ceri-m1-techniques-de-test.svg?style=svg)](https://circleci.com/gh/marie-zephir/ceri-m1-techniques-de-test)
+
 ## Introduction
 
 Vous allez à travers ces projet mettre en application une partie des aspects évoqués en cours vis à vis des techniques de tests.  
