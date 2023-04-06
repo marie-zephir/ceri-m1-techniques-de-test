@@ -2,10 +2,7 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -98,31 +95,42 @@ public class IPokedexTest {
         };
     }
     @Test
-    void testsize() {
-        assertEquals("1",iPokedexExample1.size());
-        assertEquals("2",iPokedexExample2.size());
-    }
-
-    @Test
     void testAddPokemon() {
-        assertEquals("0",iPokedexExample1.addPokemon(example1));
-        assertEquals("1",iPokedexExample1.addPokemon(example2));
+        assertEquals(0,iPokedexExample1.addPokemon(example1));
+        assertEquals(1,iPokedexExample1.addPokemon(example2));
     }
 
     @Test
     void testGetPokemon() throws PokedexException {
-        assertEquals("example1",iPokedexExample1.getPokemon(0));
-        assertEquals("example2",iPokedexExample1.getPokemon(1));
+        iPokedexExample1.addPokemon(example1);
+        iPokedexExample1.addPokemon(example2);
+        assertEquals(example1,iPokedexExample1.getPokemon(0));
+        assertEquals(example2,iPokedexExample1.getPokemon(1));
     }
 
     @Test
     void testGetPokemons() {
-        assertEquals("pokemonList",iPokedexExample2.getPokemons());
+        iPokedexExample2.addPokemon(example1);
+        iPokedexExample2.addPokemon(example2);
+        assertEquals(pokemonList,iPokedexExample2.getPokemons());
     }
 
     @Test
     void testGetPokemons2() {
-        Collections.sort(pokemonList, Collections.reverseOrder());
-        assertEquals("pokemonList",iPokedexExample1.getPokemons(Collections.reverseOrder()));
+        iPokedexExample2.addPokemon(example1);
+        iPokedexExample2.addPokemon(example2);
+        List<Pokemon> colors = new ArrayList<>(iPokedexExample2.getPokemons());
+        for (int i = 0, j = colors.size() - 1; i < j; i++) {
+            colors.add(i, colors.remove(j));
+        }
+        Collections.reverse(pokemonList);
+        assertEquals(pokemonList,colors);
+    }
+    @Test
+    void testsize() {
+        iPokedexExample2.addPokemon(example1);
+        iPokedexExample2.addPokemon(example2);
+        assertEquals(2,iPokedexExample1.size());
+        assertEquals(2,iPokedexExample2.size());
     }
 }
