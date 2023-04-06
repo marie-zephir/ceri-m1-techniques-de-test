@@ -36,7 +36,6 @@ jobs:
             mvn clean test
           after_success:
             - bash <(curl -s https://codecov.io/bash)
-
 # Workflows
 workflows:
   version: 2.1
