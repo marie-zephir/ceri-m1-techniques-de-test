@@ -41,23 +41,6 @@ jobs:
           root: docs
           paths: javadocs
 
-  docs-deploy:
-    docker:
-      - image: node:8.10.0
-    steps:
-      - checkout
-      - attach_workspace:
-          at: docs
-      - run:
-          name: Install and configure dependencies
-          command: |
-            npm install -g --silent gh-pages@2.0.1
-            git config user.email "marie.zephir@alumni.univ-avignon.fr"
-            git config user.name "marie-zephir"
-      - run:
-          name: Deploy docs to gh-pages branch
-          command: gh-pages --dist docs/_javadocs
-
 # Workflows
 workflows:
   version: 2.1
