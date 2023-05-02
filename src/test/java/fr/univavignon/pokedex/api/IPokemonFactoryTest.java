@@ -17,7 +17,7 @@ public class IPokemonFactoryTest {
     }
 
     @Test
-    void testCreatePokemon(){
+    void testCreatePokemon() throws PokedexException {
         assertEquals(example1,iPokemonFactoryExample1.createPokemon(0,613,64,4000,4));
         assertEquals(example2,iPokemonFactoryExample2.createPokemon(133,2729,202,5000,4));
     }
