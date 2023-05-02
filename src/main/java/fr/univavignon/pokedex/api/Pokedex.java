@@ -96,9 +96,14 @@ public class Pokedex implements IPokedex{
      * @return Created pokemon instance.
      */
     @Override
-    public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
-        Pokemon pokemon = this.pokemonFactory.createPokemon(index, cp, hp, dust, candy);
-        return pokemon;
+    public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) throws PokedexException {
+        if(index <= -1){
+            throw new PokedexException("L'index de ce pokemon n'existe pas");
+        }
+        else {
+            Pokemon pokemon = this.pokemonFactory.createPokemon(index, cp, hp, dust, candy);
+            return pokemon;
+        }
     }
 
     /**
@@ -111,7 +116,7 @@ public class Pokedex implements IPokedex{
      */
     @Override
     public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-        if (index <= -1 || index > pokemons.size()-1) {
+        if (index <= -1) {
             throw new PokedexException("L'index de ce pokemon n'existe pas");
         }
         else{
