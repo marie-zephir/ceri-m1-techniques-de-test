@@ -34,13 +34,6 @@ jobs:
           name: Run unit tests
           command: |
             mvn clean test
-
-      - run:
-        name: Build docs
-        command: javadoc -d
-      - persist_to_workspace:
-          root: docs
-          paths: javadocs
   javadocs:
     docker:
       - image: cimg/base:2021.04
