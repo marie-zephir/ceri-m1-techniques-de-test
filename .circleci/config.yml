@@ -85,7 +85,7 @@ workflows:
           branches:
             only:
               -  master
-      - javadocs
+      - docs/javadocs
       - javadocs-deploy:
         requires:
-          - javadocs
+          - docs/javadocs
