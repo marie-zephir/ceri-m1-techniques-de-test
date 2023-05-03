@@ -37,10 +37,49 @@ jobs:
 
       - run:
         name: Build docs
-        command: javadoc -d .\docs\javadocs .\src\main\java\fr\univavignon\pokedex\api\*.java
+        command: javadoc -d
       - persist_to_workspace:
           root: docs
           paths: javadocs
+  javadocs:
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - checkout
+      - run:
+          name: OpenJDK-PPA
+          command: sudo add-apt-repository ppa:openjdk-r/ppa
+      - run:
+          name: Update
+          command: sudo apt-get update
+      - run:
+          name: OpenJDK-Install
+          command: sudo apt-get install openjdk-11-jdk-headless -y
+      - run:
+          name: Build docs
+          command: javadoc -d .\docs\javadocs .\src\main\java\fr\univavignon\pokedex\api\*.java
+      - persist_to_workspace:
+          root: .
+          paths: .\docs\javadocs
+  javadocs-deploy:
+    docker:
+      - image: node:20
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .\docs\javadocs
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@3.0.0
+            git config user.email "marie.zephir@alumni.univ-avignon.fr"
+            git config user.name "marie-zephir"
+      - add_ssh_keys:
+          fingerprints:
+            - "01:36:56:98:49:5e:2b:90:8f:14:4d:eb:79:3f:05:49"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dist docs/javadocs
 
 # Workflows
 workflows:
@@ -53,3 +92,7 @@ workflows:
           branches:
             only:
               -  master
+      - javadocs
+      - javadocs-deploy:
+        requires:
+          - docs/javadocs
