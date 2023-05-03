@@ -51,8 +51,8 @@ jobs:
       - run:
           name: Build docs
           command: |
-            javadoc -d ./docs/javadocs ./src/main/java/fr/univavignon/pokedex/api/*
             mvn dependency:get -Dartifact=org.apache.commons:commons-collections4:4.0:jar:sources
+            javadoc -d ./docs/javadocs ./src/main/java/fr/univavignon/pokedex/api/*
       - persist_to_workspace:
           root: .
           paths: ./docs/javadocs
