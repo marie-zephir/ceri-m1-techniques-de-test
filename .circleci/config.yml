@@ -88,4 +88,4 @@ workflows:
       - javadocs
       - javadocs-deploy:
         requires:
-          - docs/javadocs
+          - javadocs
