@@ -13,7 +13,7 @@ Groupe: M1-ALT-ILSEN
 
 [![codecov](https://codecov.io/gh/marie-zephir/ceri-m1-techniques-de-test/branch/master/graph/badge.svg)](https://codecov.io/gh/marie-zephir/ceri-m1-techniques-de-test)
 
-[![Checkstyle](docs/badges/checkstyle-result.svg)](https://htmlpreview.github.io/?https://github.com/marie-zephir/ceri-m1-techniques-de-test/blob/master/docs/checkstyle/checkstyle.html)
+[![Checkstyle](docs/badges/checkstyle-result.svg)](https://marie-zephir.github.io/ceri-m1-techniques-de-test/)
 
 ## Introduction
 
