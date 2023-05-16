@@ -5,132 +5,114 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class IPokedexTest {
     Pokemon example1;
     Pokemon example2;
 
     IPokedex iPokedexExample1;
-    IPokedex iPokedexExample2;
     List<Pokemon> pokemonList = new ArrayList<Pokemon>();
 
-    public  IPokedexTest(){
-        this.example1 = new Pokemon(0,"Bulbizarre",126,126,90,613,64,4000,4,56);
-        this.example2 = new Pokemon(133,"Aquali",186,168,260,2729,202,5000,4,100);
-        this.iPokedexExample1 = new IPokedex() {
-            @Override
-            public int size() {
-                return pokemonList.size();
-            }
+    IPokemonMetadataProvider iPokemonMetadataProviderExample1;
+    IPokemonFactory iPokemonFactoryExample1;
 
-            @Override
-            public int addPokemon(Pokemon pokemon) {
-                pokemonList.add(pokemon);
-                return pokemonList.indexOf(pokemon);
-            }
+    public  IPokedexTest() {
+        this.example1 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
+        this.example2 = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
 
-            @Override
-            public Pokemon getPokemon(int id) throws PokedexException {
-                return pokemonList.get(id);
-            }
+        iPokemonMetadataProviderExample1 = new PokemonMetadataProvider();
+        iPokemonFactoryExample1 = new PokemonFactory();
+        iPokedexExample1 = new Pokedex(iPokemonMetadataProviderExample1, iPokemonFactoryExample1);
 
-            @Override
-            public List<Pokemon> getPokemons() {
-                return pokemonList;
-            }
-
-            @Override
-            public List<Pokemon> getPokemons(Comparator<Pokemon> order) {
-                pokemonList.sort(order);
-                return pokemonList;
-            }
-
-            @Override
-            public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
-                return example1;
-            }
-
-            @Override
-            public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-                return example1;
-            }
-        };
-        this.iPokedexExample2 = new IPokedex() {
-            @Override
-            public int size() {
-                return pokemonList.size();
-            }
-
-            @Override
-            public int addPokemon(Pokemon pokemon) {
-                pokemonList.add(pokemon);
-                return pokemonList.indexOf(pokemon);
-            }
-
-            @Override
-            public Pokemon getPokemon(int id) throws PokedexException {
-                return pokemonList.get(id);
-            }
-
-            @Override
-            public List<Pokemon> getPokemons() {
-                return pokemonList;
-            }
-
-            @Override
-            public List<Pokemon> getPokemons(Comparator<Pokemon> order) {
-                pokemonList.sort(order);
-                return pokemonList;
-            }
-
-            @Override
-            public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
-                return example2;
-            }
-
-            @Override
-            public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-                return example2;
-            }
-        };
     }
     @Test
-    void testAddPokemon() {
+    void testsize() {
+        iPokedexExample1.addPokemon(example1);
+        assertEquals(1,iPokedexExample1.getPokemons().size());
+    }
+
+    @Test
+    void testaddPokemon() {
         assertEquals(0,iPokedexExample1.addPokemon(example1));
         assertEquals(1,iPokedexExample1.addPokemon(example2));
     }
 
     @Test
-    void testGetPokemon() throws PokedexException {
+    void testgetPokemon() throws PokedexException {
         iPokedexExample1.addPokemon(example1);
         iPokedexExample1.addPokemon(example2);
-        assertEquals(example1,iPokedexExample1.getPokemon(0));
-        assertEquals(example2,iPokedexExample1.getPokemon(1));
+
+        assertEquals(iPokedexExample1.getPokemon(0),example1);
+        assertEquals(iPokedexExample1.getPokemon(0).getIndex(),0);
+        assertEquals(iPokedexExample1.getPokemon(0).getName(), "Bulbizarre");
+        assertEquals(iPokedexExample1.getPokemon(0).getAttack(), 126);
+        assertEquals(iPokedexExample1.getPokemon(0).getDefense(), 126);
+        assertEquals(iPokedexExample1.getPokemon(0).getStamina(), 90);
+        assertEquals(iPokedexExample1.getPokemon(0).getCp(), 613);
+        assertEquals(iPokedexExample1.getPokemon(0).getHp(), 64);
+        assertEquals(iPokedexExample1.getPokemon(0).getDust(), 4000);
+        assertEquals(iPokedexExample1.getPokemon(0).getCandy(), 4);
+        assertEquals(iPokedexExample1.getPokemon(0).getIv(), 56);
+
+        assertEquals(iPokedexExample1.getPokemon(1),example2);
+        assertEquals(iPokedexExample1.getPokemon(1).getIndex(),133);
+        assertEquals(iPokedexExample1.getPokemon(1).getName(), "Aquali");
+        assertEquals(iPokedexExample1.getPokemon(1).getAttack(), 186);
+        assertEquals(iPokedexExample1.getPokemon(1).getDefense(), 168);
+        assertEquals(iPokedexExample1.getPokemon(1).getStamina(), 260);
+        assertEquals(iPokedexExample1.getPokemon(1).getCp(), 2729);
+        assertEquals(iPokedexExample1.getPokemon(1).getHp(), 202);
+        assertEquals(iPokedexExample1.getPokemon(1).getDust(), 5000);
+        assertEquals(iPokedexExample1.getPokemon(1).getCandy(), 4);
+        assertEquals(iPokedexExample1.getPokemon(1).getIv(), 100);
+
     }
 
     @Test
-    void testGetPokemons() {
-        iPokedexExample2.addPokemon(example1);
-        iPokedexExample2.addPokemon(example2);
-        assertEquals(pokemonList,iPokedexExample2.getPokemons());
+    void testgetPokemons(){
+        pokemonList.add(example1);
+        pokemonList.add(example2);
+
+        iPokedexExample1.addPokemon(example1);
+        iPokedexExample1.addPokemon(example2);
+        assertEquals(iPokedexExample1.getPokemons(),pokemonList);
     }
 
     @Test
-    void testGetPokemons2() {
-        iPokedexExample2.addPokemon(example1);
-        iPokedexExample2.addPokemon(example2);
-        List<Pokemon> colors = new ArrayList<>(iPokedexExample2.getPokemons());
-        for (int i = 0, j = colors.size() - 1; i < j; i++) {
-            colors.add(i, colors.remove(j));
-        }
-        Collections.reverse(pokemonList);
-        assertEquals(pokemonList,colors);
+    void testgetPokemons2(){
+        pokemonList.add(example1);
+        pokemonList.add(example2);
+
+        iPokedexExample1.addPokemon(example2);
+        iPokedexExample1.addPokemon(example1);
+
+        assertEquals(iPokedexExample1.getPokemons(PokemonComparators.INDEX),pokemonList);
     }
     @Test
-    void testsize() {
-        iPokedexExample2.addPokemon(example1);
-        iPokedexExample2.addPokemon(example2);
-        assertEquals(2,iPokedexExample1.size());
-        assertEquals(2,iPokedexExample2.size());
+    public void testCreatePokemon() throws PokedexException {
+        Pokemon pokemon = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
+        assertEquals(pokemon.getIndex(),example1.getIndex());
+        assertEquals(pokemon.getName(), example1.getName());
+        assertEquals(pokemon.getAttack(), example1.getAttack());
+        assertEquals(pokemon.getDefense(), example1.getDefense());
+        assertEquals(pokemon.getStamina(), example1.getStamina());
+        assertEquals(pokemon.getCp(), example1.getCp());
+        assertEquals(pokemon.getHp(), example1.getHp());
+        assertEquals(pokemon.getDust(), example1.getDust());
+        assertEquals(pokemon.getCandy(), example1.getCandy());
+        assertEquals(pokemon.getIv(), example1.getIv());
     }
+
+    @Test
+    void testgetPokemonMetadata() throws PokedexException {
+        assertEquals(PokemonMetadata.class, iPokedexExample1.getPokemonMetadata(example1.getIndex()).getClass());
+    }
+
+    @Test
+    public void textPokedexException(){
+        assertThrows(PokedexException.class, () -> iPokedexExample1.getPokemon(3));
+        assertThrows(PokedexException.class, () -> iPokedexExample1.getPokemon(-1));
+    }
+
 }
