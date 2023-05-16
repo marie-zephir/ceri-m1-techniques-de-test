@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class IPokemonFactoryTest {
     Pokemon example1;
+
     Pokemon example2;
+
     public IPokemonFactory iPokemonFactoryExample1;
 
     public  IPokemonFactoryTest(){
