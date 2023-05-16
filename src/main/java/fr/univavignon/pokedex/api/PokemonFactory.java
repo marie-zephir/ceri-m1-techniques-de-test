@@ -30,7 +30,7 @@ public class PokemonFactory implements IPokemonFactory{
             int lowestIv = 30;
             int highestIv = 100;
             // generate random number between 30 and 100 as it is a percentage(for the iv)
-            int iv = r.nextInt(highestIv-lowestIv) + lowestIv;
+            int iv = r.nextInt(highestIv-lowestIv);
 
             return new Pokemon(index, name, attack, defense, stamina, cp, hp, dust, candy, iv);
         }
