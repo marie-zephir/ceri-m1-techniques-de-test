@@ -48,5 +48,4 @@ public class IPokemonFactoryTest {
     public void testPokedexException(){
         assertThrows(PokedexException.class, () -> iPokemonFactoryExample1.createPokemon(-1,613,64,4000,4));
     }
-
 }
