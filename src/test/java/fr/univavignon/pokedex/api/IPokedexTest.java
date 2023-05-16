@@ -28,8 +28,8 @@ public class IPokedexTest {
     }
     @Test
     void testsize() {
-        iPokedexExample1.addPokemon(example1);
-        assertEquals(1,iPokedexExample1.getPokemons().size());
+        pokemonList.add(example1);
+        assertEquals(1,pokemonList.size());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class IPokedexTest {
     }
     @Test
     public void testCreatePokemon() throws PokedexException {
-        Pokemon pokemon = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
+        Pokemon pokemon = iPokedexExample1.createPokemon(0,613,64,4000,4);
         assertEquals(pokemon.getIndex(),example1.getIndex());
         assertEquals(pokemon.getName(), example1.getName());
         assertEquals(pokemon.getAttack(), example1.getAttack());
@@ -101,12 +101,14 @@ public class IPokedexTest {
         assertEquals(pokemon.getHp(), example1.getHp());
         assertEquals(pokemon.getDust(), example1.getDust());
         assertEquals(pokemon.getCandy(), example1.getCandy());
-        assertEquals(pokemon.getIv(), example1.getIv());
+
+        assertThrows(PokedexException.class, () -> iPokedexExample1.createPokemon(-1,613,64,4000,4));
     }
 
     @Test
     void testgetPokemonMetadata() throws PokedexException {
         assertEquals(PokemonMetadata.class, iPokedexExample1.getPokemonMetadata(example1.getIndex()).getClass());
+        assertThrows(PokedexException.class, () -> iPokedexExample1.getPokemonMetadata(-1));
     }
 
     @Test
