@@ -31,6 +31,9 @@ public class IPokemonTrainerFactoryTest {
     void testcreateTrainer() {
         IPokedex pokedex = iPokedexFactoryExample1.createPokedex(new PokemonMetadataProvider(), new PokemonFactory());
         PokemonTrainer pokemonTrainer = new PokemonTrainer("Marie",Team.MYSTIC,pokedex);
+
+        assertEquals(Pokedex.class,pokedex.getClass());
+        assertEquals(PokemonTrainer.class,pokemonTrainer.getClass());
         assertEquals("Marie",pokemonTrainer.getName());
         assertEquals(Team.MYSTIC,pokemonTrainer.getTeam());
         assertEquals(iPokedexFactoryExample1.createPokedex(new PokemonMetadataProvider(), new PokemonFactory()).getPokemons(),pokemonTrainer.getPokedex().getPokemons());
